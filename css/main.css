@@ -1,0 +1,60 @@
+*
+{
+	font-family: "Open Sans", "Segoe UI", sans-serif;
+	color: rgba(60,60,60,1);
+}
+
+::-moz-selection
+{
+    color: white;
+    background: rgb(60,60,60);	
+}
+
+::selection
+{
+    color: white;
+    background: rgb(60,60,60);
+}
+
+
+
+body
+{
+	background-color: rgb(240,240,240);
+	padding-top:80px;
+	padding-bottom:80px;
+}
+
+a
+{
+	text-decoration: none;
+	color: rgb(86,144,169);
+}
+
+hr
+{
+	color: rgba(0,0,0,0.05);
+	border-style:solid;
+}
+
+.center
+{
+	display:block;
+	margin-left: auto;
+	margin-right: auto;
+	min-width: 800px;
+	max-width: 100%;
+	width:1000px;
+}
+
+.clear
+{
+	clear:both;
+}
+
+.invisitext
+{
+	color: white;
+	color: rgba(0,0,0,0);
+	cursor: default;
+}
