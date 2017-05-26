@@ -31,3 +31,20 @@
 {
 	color: rgb(60,60,60);
 }
+
+
+.portfoliorow
+{
+	display:block;
+	width:100%;
+	/*height:100px;*/
+}
+
+.portfoliorow a img
+{
+	margin:-6px;
+	border-style:solid;
+	border-color:rgb(240,240,240);
+	border-width:6px;
+}
+
