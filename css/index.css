@@ -40,11 +40,16 @@
 	/*height:100px;*/
 }
 
-.portfoliorow a img
+.portfolioitem
 {
-	margin:-6px;
+	/*margin:-6px;
 	border-style:solid;
 	border-color:rgb(240,240,240);
 	border-width:6px;
+	*/
+	display:inline-block;
+	background-color:white;
+	margin:3px;
+	background-size:cover;
 }
 

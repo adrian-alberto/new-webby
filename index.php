@@ -56,9 +56,9 @@ foreach ($folders as $i => $folder) {
 	}
 }
 
-function makeButton($link, $img, $wPercent, $numRow) {
-	$mg = ($numRow-1)*4; #margin
-	echo "<a><img src=\"$img\" style=\"width:$wPercent%;\"></a>";
+function makeButton($link, $img, $wPercent, $ratio) {
+	$pTop = $wPercent/$ratio;
+	echo "<a href=\"/\"><div class=\"portfolioitem\"  id=\"$img\" style=\"width:calc($wPercent% - 6px);padding-top:$pTop%;\"></div></a>";
 }
 
 
@@ -72,7 +72,7 @@ foreach ($thumbs as $i => $thumbpath) {
 		echo "<div class=\"portfoliorow\">";
 		foreach ($currentRow as $j => $tp) {
 			$rj = $currentRowRatios[$j];
-			makeButton("/",$tp, 100.0*$rj/$totalRatio, count($currentRow)) ;	
+			makeButton("/",$tp, 100.0*$rj/$totalRatio, $rj) ;	
 		}
 		echo "</div>";
 		$totalRatio = 0.0;
@@ -93,6 +93,51 @@ foreach ($thumbs as $i => $thumbpath) {
 <!-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -->
 		</div>
 	</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", main);
+
+
+function main() {
+	var buttons = document.getElementsByClassName("portfolioitem");
+	for (var i = 0; i < buttons.length; i++) {
+		var btn = buttons[i];
+		btn.style.backgroundImage = "url('" + btn.id + "')";
+		btn.style.opacity = 0;
+		
+		var imgloader = document.createElement("IMG");
+		imgloader.setAttribute("src", btn.id);
+			
+		if (imgloader.complete) {
+			fadein(btn, i);
+		} else {
+			imgloader.addEventListener('load', 
+				function(target, index){
+					return function() {
+						fadein(target, index);
+					};
+				}(btn, i), false);
+		}
+		
+	}
+	
+}
+
+function fadein(el, i) {
+	var tick = function() {
+		el.style.opacity = +el.style.opacity + 0.1;
+		if (+el.style.opacity < 1) {
+			(window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16)
+		} else {
+			el.style.opacity = 1;
+		}
+	}
+	setTimeout(tick, 200 * i);
+
+}
+</script>
+
+
 </body>
 
 </html>
