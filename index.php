@@ -101,22 +101,20 @@ document.addEventListener("DOMContentLoaded", main);
 function main() {
 	var buttons = document.getElementsByClassName("portfolioitem");
 	for (var i = 0; i < buttons.length; i++) {
-		var btn = buttons[i];
+		let btn = buttons[i];
+		let j = i;
 		btn.style.backgroundImage = "url('" + btn.id + "')";
 		btn.style.opacity = 0;
 		
+		//Fade in the image upon load.
 		var imgloader = document.createElement("IMG");
 		imgloader.setAttribute("src", btn.id);
 			
 		if (imgloader.complete) {
-			fadein(btn, i);
+			fadein(btn, j);
 		} else {
 			imgloader.addEventListener('load', 
-				function(target, index){
-					return function() {
-						fadein(target, index);
-					};
-				}(btn, i), false);
+				function() {fadein(btn, j);});
 		}
 		
 	}
