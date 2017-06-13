@@ -1,0 +1,20 @@
+![screenshot](cobalism.PNG)
+
+A simple procedural dungeon crawler.
+
+Ludum Dare 26 jam entry with partner Kerrigan Fairbairn.
+
+
+##Ratings out of 5.
+
+Rank | Category       | Rating
+---- | ------------- | ---
+#405 | Theme(Jam)	  | 2.86
+#414 | Audio(Jam)	  | 2.05
+#444 | Fun(Jam)	      | 2.36
+#454 | Mood(Jam)	  | 2.33
+#496 | Overall(Jam)	  | 2.48
+#510 | Innovation(Jam)| 2.05
+#515 | Graphics(Jam)  | 2.18
+
+[Ludum Dare page with downloads.](http://www.ludumdare.com/compo/ludum-dare-26/comment-page-2/?action=preview&uid=21852)

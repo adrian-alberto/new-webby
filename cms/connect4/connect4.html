@@ -1,0 +1,165 @@
+<!DOCTYPE HTML>
+	<head>
+		<meta name="viewport" content="width=320, minimal-ui">
+		<link rel="shortcut icon" type='image/x-icon' href='/favicon.ico' />
+	</head>
+	<body style="margin:0px;">
+		<title>Connect 4 - wc-games</title>
+		<canvas id="game" width="320" height="480" style="background-color:#20B0AF;"></canvas>
+		<script>
+			var canvas = document.getElementById("game");
+			var ctx = canvas.getContext("2d");
+			var testText = "Tap to play";
+			var turnBool = false;
+			var grid = new Array()
+			var turns = 0;
+			var lastPlacedX = 0;
+			var lastPlacedY = 0;
+			function resetGrid()
+			{
+				turns = -1;
+				for (var x = 0; x < 7; x++)
+				{
+					grid[x] = new Array();
+					for (var y = 0; y < 9; y++)
+					{
+						grid[x][y] = 0;
+					}
+				}
+			}
+			resetGrid();
+
+			function draw()
+			{
+				ctx.font = "24px Courier";
+				ctx.fillStyle = "#20B0AF";
+				ctx.fillRect(0,0,320,480);
+				ctx.fillStyle = "#FFFFFF";
+				ctx.strokeStyle = "rgba(255,255,255,.5)";
+				ctx.lineWidth = 2;
+				ctx.fillText(testText, 15, 45);
+				ctx.font = "12px Courier";
+				ctx.fillText("http://wc-games.net", 15, 468);
+
+				for (var x = 0; x < 7; x++)
+				{
+					for (var y = 0; y < 9; y++)
+					{
+						var drawX = x*43 + 30;
+						var drawY = y*-43 + 430;
+						ctx.lineWidth = 2;
+						ctx.strokeStyle = "rgba(255,255,255,.2)";
+						ctx.beginPath();
+						ctx.arc(drawX, drawY, 16, 0, 2*Math.PI);
+						ctx.closePath();
+						ctx.stroke();
+
+						ctx.lineWidth = 4;
+						ctx.strokeStyle = ctx.fillStyle;
+						ctx.beginPath();
+						ctx.arc(drawX, drawY, 10, 0, 2*Math.PI);
+						ctx.closePath();
+						if (grid[x][y] == 1)
+							ctx.stroke();
+						else if(grid[x][y] == -1)
+							ctx.fill();
+					}
+				}
+			}
+			draw();
+
+			function mousedn(e)
+			{
+				var mx = e.clientX;
+				var my = e.clientY;
+				if (turns == -1)
+				{
+					turns += 1;
+					testText = turnBool ? "Solid's turn" : "Outline's turn";
+					draw();
+				}
+				else if (attemptTurn(mx, my, turnBool))
+				{
+					draw();
+					turnBool = !turnBool;
+					testText = turnBool ? "Solid's turn" : "Outline's turn";
+					if (!checkWin(lastPlacedX, lastPlacedY))
+						draw();
+				}
+			}
+
+			function attemptTurn(mx, my, turn)
+			{
+				var x = Math.floor((mx - 15)/43)
+				var column = grid[x];
+				for (var y = 0; y < 9; y++)
+				{
+					if (column[y] == 0)
+					{
+						column[y] = turn ? -1 : 1;
+						turns += 1;
+						lastPlacedX = x;
+						lastPlacedY = y;
+						return true;
+					}
+				}
+			}
+
+			function checkWin(x, y)
+			{
+				var diag1ct = 0;
+				var diag2ct = 0;
+				var horict = 0;
+				var vertct = 0;
+				for (var cx = Math.max(0, x - 3); cx <= Math.min(6, x + 3); cx++)
+				{
+					for (var cy = Math.max(0, y - 3); cy <= Math.min(8, y + 3); cy++)
+					{
+						var dx = cx - x;
+						var dy = cy - y;
+						if (grid[x][y] == grid[cx][cy])
+						{
+
+							if (dx == dy)
+								diag1ct++;
+							if (dx == -dy)
+								diag2ct++;
+							if (dx == 0)
+								vertct++;
+							if (dy == 0)
+								horict++;
+							if (Math.max(diag1ct, diag2ct, horict, vertct) >= 4)
+							{
+								testText = (grid[x][y] == 1) ? "OUTLINE WINS!" : "SOLID WINS!";
+								draw();
+								resetGrid();
+								return true;
+							}
+						}
+						else
+						{
+							if (dx == dy)
+								diag1ct = 0;
+							if (dx == -dy)
+								diag2ct = 0;
+							if (dx == 0)
+								vertct = 0;
+							if (dy == 0)
+								horict = 0;
+						}
+					}
+				}
+
+				if (turns >= 63)
+				{
+					testText = "DRAW!"
+					draw();
+					resetGrid();
+					return true;
+				}
+			}
+
+			document.getElementById("game").addEventListener("click", mousedn, false);
+		</script>
+	</body>
+</html>

@@ -1,0 +1,8 @@
+#SVG Plotter
+
+June 2017
+
+Generative art by Adrian Alberto.
+Plotting hardware by Jason Saccoliti.
+
+Gallery coming soon.

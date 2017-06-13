@@ -44,7 +44,7 @@ $thumbs = array(); //We changed this to use the id instead of thumbs, fix later
 $ratios = array();
 foreach ($folders as $i => $folder) {
 	#echo $folder . "<br>";
-	$thumbname = "thumb_$folder.png";
+	$thumbname = "thumb.png";
 	$thumbpath = "$dir$folder/$thumbname";
 	if (is_file($thumbpath)) {
 		#echo $thumbpath . "<br>";
@@ -112,7 +112,7 @@ function main() {
 		let contentID = btn.id;
 		let j = i;
 		let dir = "/cms/" + contentID + "/";
-		let imgurl = dir + "thumb_" + contentID + ".png";
+		let imgurl = dir + "thumb.png";
 		btn.style.backgroundImage = "url('" + imgurl + "')";
 		btn.style.opacity = 0;
 		btn.setAttribute("id", "");
@@ -139,7 +139,7 @@ function main() {
 		
 				var mdloader = document.createElement("IFRAME");
 				mdloader.setAttribute("id", "mdloader");
-				mdloader.setAttribute("src", "test.md");
+				mdloader.setAttribute("src", "cms/"+contentID+"/info.txt");
 				mdloader.setAttribute("onload", "fill();");
 				mdloader.style.display = "none";
 				tray.appendChild(mdloader);
