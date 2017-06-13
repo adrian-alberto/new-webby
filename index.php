@@ -40,7 +40,7 @@
 $dir = $_SERVER['DOCUMENT_ROOT']."/cms/";
 $folders = scandir($dir);
 
-$thumbs = array();
+$thumbs = array(); //We changed this to use the id instead of thumbs, fix later
 $ratios = array();
 foreach ($folders as $i => $folder) {
 	#echo $folder . "<br>";
@@ -51,14 +51,14 @@ foreach ($folders as $i => $folder) {
 		$size = getimagesize($dir.$folder."/".$thumbname);
 		$w = $size[0];
 		$h = $size[1];
-		array_push($thumbs, "/cms/$folder/$thumbname");
+		array_push($thumbs, "$folder");
 		array_push($ratios, $w/$h);
 	}
 }
 
-function makeButton($link, $img, $wPercent, $ratio) {
+function makeButton($link, $id, $wPercent, $ratio) {
 	$pTop = $wPercent/$ratio;
-	echo "<a href=\"/\"><div class=\"portfolioitem\"  id=\"$img\" style=\"width:calc($wPercent% - 6px);padding-top:$pTop%;\"></div></a>";
+	echo "<a href=\"/\"><div class=\"portfolioitem\"  id=\"$id\" style=\"width:calc($wPercent% - 6px);padding-top:$pTop%;\"></div></a>";
 }
 
 
@@ -74,7 +74,7 @@ foreach ($thumbs as $i => $thumbpath) {
 			$rj = $currentRowRatios[$j];
 			makeButton("/",$tp, 100.0*$rj/$totalRatio, $rj) ;	
 		}
-		echo "</div>";
+		echo "<div class=\"tray\"></div></div>";
 		$totalRatio = 0.0;
 		$currentRow = array();
 		$currentRowRatios = array();
@@ -93,7 +93,7 @@ foreach ($thumbs as $i => $thumbpath) {
 <!-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -->
 		</div>
 	</div>
-
+	<hr>
 <script>
 document.addEventListener("DOMContentLoaded", main);
 
@@ -103,12 +103,29 @@ function main() {
 	for (var i = 0; i < buttons.length; i++) {
 		let btn = buttons[i];
 		let j = i;
-		btn.style.backgroundImage = "url('" + btn.id + "')";
+		let dir = "/cms/" + btn.id + "/";
+		let imgurl = dir + "thumb_" + btn.id + ".png";
+		btn.style.backgroundImage = "url('" + imgurl + "')";
 		btn.style.opacity = 0;
 		
+
+		//Hook up button
+		btn.onclick = expand;
+		function expand() {
+			var othertrays = document.getElementsByClassName("tray");
+			for (var k = 0; k < othertrays.length; k++) {
+				othertrays[k].style.display = "none";
+			}
+			var tray = btn.parentNode.parentNode.getElementsByClassName("tray")[0];
+			tray.innerHTML = "asdf";
+			tray.style.display = "block";
+			return false;
+		}
+
+
 		//Fade in the image upon load.
 		var imgloader = document.createElement("IMG");
-		imgloader.setAttribute("src", btn.id);
+		imgloader.setAttribute("src", imgurl);
 			
 		if (imgloader.complete) {
 			fadein(btn, j);
