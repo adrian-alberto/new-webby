@@ -53,3 +53,15 @@
 	background-size:cover;
 }
 
+.tray
+{
+	display:none;
+	background-color:#bfbfbf;
+	margin: 3px;
+	padding: 10px;
+}
+
+#currentTray
+{
+	display:block;
+}

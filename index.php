@@ -43,11 +43,9 @@ $folders = scandir($dir);
 $thumbs = array(); //We changed this to use the id instead of thumbs, fix later
 $ratios = array();
 foreach ($folders as $i => $folder) {
-	#echo $folder . "<br>";
 	$thumbname = "thumb.png";
 	$thumbpath = "$dir$folder/$thumbname";
 	if (is_file($thumbpath)) {
-		#echo $thumbpath . "<br>";
 		$size = getimagesize($dir.$folder."/".$thumbname);
 		$w = $size[0];
 		$h = $size[1];
@@ -86,7 +84,17 @@ foreach ($thumbs as $i => $thumbpath) {
 	array_push($currentRow, $thumbpath);
 	array_push($currentRowRatios, $ratio);
 }
-
+if (sizeof($currentRow) > 0) {
+	echo "<div class=\"portfoliorow\">";
+	foreach ($currentRow as $j => $tp) {
+		$rj = $currentRowRatios[$j];
+		makeButton("/",$tp, 100.0*$rj/$totalRatio, $rj) ;	
+	}
+	echo "<div class=\"tray\"></div></div>";
+	$totalRatio = 0.0;
+	$currentRow = array();
+	$currentRowRatios = array();
+}
 
 ?>
 
