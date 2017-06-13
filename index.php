@@ -109,11 +109,13 @@ function main() {
 	var buttons = document.getElementsByClassName("portfolioitem");
 	for (var i = 0; i < buttons.length; i++) {
 		let btn = buttons[i];
+		let contentID = btn.id;
 		let j = i;
-		let dir = "/cms/" + btn.id + "/";
-		let imgurl = dir + "thumb_" + btn.id + ".png";
+		let dir = "/cms/" + contentID + "/";
+		let imgurl = dir + "thumb_" + contentID + ".png";
 		btn.style.backgroundImage = "url('" + imgurl + "')";
 		btn.style.opacity = 0;
+		btn.setAttribute("id", "");
 		
 
 		//Hook up button
@@ -122,23 +124,28 @@ function main() {
 			var othertrays = document.getElementsByClassName("tray");
 			for (var k = 0; k < othertrays.length; k++) {
 				othertrays[k].innerHTML = "";
-				othertrays[k].style.display = "none";
 				othertrays[k].setAttribute("id", "");
 			}
-				
 			
-			var tray = btn.parentNode.parentNode.getElementsByClassName("tray")[0];
-			tray.innerHTML = "loading...";
-			tray.style.display = "block";
-			tray.setAttribute("id", "currentTray");
-	
-			var mdloader = document.createElement("IFRAME");
-			mdloader.setAttribute("id", "mdloader");
-			mdloader.setAttribute("src", "test.md");
-			mdloader.setAttribute("onload", "fill();");
-			mdloader.style.display = "none";
-			tray.appendChild(mdloader);
-
+			if (btn.id != "currentButton") {
+				var cb = document.getElementById("currentButton")
+				if (cb) {
+					cb.setAttribute("id","");
+				}
+				btn.setAttribute("id", "currentButton");
+				var tray = btn.parentNode.parentNode.getElementsByClassName("tray")[0];
+				tray.innerHTML = "loading...";
+				tray.setAttribute("id", "currentTray");
+		
+				var mdloader = document.createElement("IFRAME");
+				mdloader.setAttribute("id", "mdloader");
+				mdloader.setAttribute("src", "test.md");
+				mdloader.setAttribute("onload", "fill();");
+				mdloader.style.display = "none";
+				tray.appendChild(mdloader);
+			} else {
+				btn.setAttribute("id", "");
+			}
 			return false;
 		}
 
