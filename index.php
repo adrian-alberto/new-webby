@@ -92,8 +92,8 @@ foreach ($thumbs as $i => $thumbpath) {
 
 <!-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -->
 		</div>
+		<hr>
 	</div>
-	<hr>
 <script src="js/pagedown.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", main);
@@ -134,7 +134,7 @@ function main() {
 				}
 				btn.setAttribute("id", "currentButton");
 				var tray = btn.parentNode.parentNode.getElementsByClassName("tray")[0];
-				tray.innerHTML = "loading...";
+				tray.innerHTML = "<p>loading...</p>";
 				tray.setAttribute("id", "currentTray");
 		
 				var mdloader = document.createElement("IFRAME");
