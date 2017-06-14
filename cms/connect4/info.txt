@@ -1,5 +1,5 @@
 <div class="center">
-<iframe scrolling="no" style="width:320px; height:480px; border:0px;" src="connect4.html"></iframe>
+<iframe scrolling="no" style="width:320px; height:480px; border:0px;" src="cms/connect4/connect4.html"></iframe>
 </div>
 
 A small two-hour project to learn JavaScript and HTML5 canvases. Works in most modern mobile browsers and most modern desktop browsers.

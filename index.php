@@ -144,13 +144,17 @@ function main() {
 				var tray = btn.parentNode.parentNode.getElementsByClassName("tray")[0];
 				tray.innerHTML = "<p>loading...</p>";
 				tray.setAttribute("id", "currentTray");
-		
-				var mdloader = document.createElement("IFRAME");
-				mdloader.setAttribute("id", "mdloader");
-				mdloader.setAttribute("src", "cms/"+contentID+"/info.txt");
-				mdloader.setAttribute("onload", "fill();");
-				mdloader.style.display = "none";
-				tray.appendChild(mdloader);
+				
+
+				//Load in the stuff
+				var xhttp = new XMLHttpRequest();
+				xhttp.onreadystatechange = function() {
+					if (this.readyState == 4 && this.status == 200) {
+						tray.innerHTML = converter.makeHtml(this.responseText);
+					}
+				}
+				xhttp.open("GET", "cms/"+contentID+"/info.txt", true);
+				xhttp.send();
 			} else {
 				btn.setAttribute("id", "");
 			}
