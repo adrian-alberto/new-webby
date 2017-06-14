@@ -105,14 +105,8 @@ if (sizeof($currentRow) > 0) {
 <script src="js/pagedown.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", main);
-
 var converter = new Markdown.Converter();
-function fill() {
-	var mdloader = document.getElementById("mdloader");
-	var ctray = document.getElementById("currentTray");
-	var rawContents = mdloader.contentWindow.document.body.childNodes[0].innerHTML;
-	ctray.innerHTML = converter.makeHtml(rawContents);
-}
+
 function main() {
 	var buttons = document.getElementsByClassName("portfolioitem");
 	for (var i = 0; i < buttons.length; i++) {
