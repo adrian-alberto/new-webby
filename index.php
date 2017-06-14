@@ -50,9 +50,12 @@ foreach ($folders as $i => $folder) {
 		$w = $size[0];
 		$h = $size[1];
 		array_push($thumbs, "$folder");
-		array_push($ratios, $w/$h);
+		$ratios[$folder]=$w/$h;
 	}
 }
+
+//TEMPORARY: override order
+$thumbs = array("consolas_rogue","kittyhawk2d","textas","crossview","happyplace","stabby","isotribes","cobalism","timeandshapes","connect4","ltacms","svgplot","spacelady","splotchy","deir","hayden","sitting","darkred","courtney");
 
 function makeButton($link, $id, $wPercent, $ratio) {
 	$pTop = $wPercent/$ratio;
@@ -65,7 +68,7 @@ $maxRatio = 5.0;
 $currentRow = array();
 $currentRowRatios = array();
 foreach ($thumbs as $i => $thumbpath) {
-	$ratio = $ratios[$i];
+	$ratio = $ratios[$thumbpath];
 	if ($totalRatio + $ratio > $maxRatio) {
 		echo "<div class=\"portfoliorow\">";
 		foreach ($currentRow as $j => $tp) {
