@@ -42,11 +42,9 @@
 
 .portfolioitem
 {
-	/*margin:-6px;
 	border-style:solid;
-	border-color:rgb(240,240,240);
-	border-width:6px;
-	*/
+	border-width:0;
+	border-radius: 5px;
 	display:inline-block;
 	background-color:white;
 	margin:3px;
